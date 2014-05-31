@@ -1,0 +1,5 @@
+# Get the BitCoin deal data
+$ python
+Python 2.7.5+ (default, Sep 19 2013, 13:49:51) 
+[GCC 4.8.1] on linux2
+$ python start.py
