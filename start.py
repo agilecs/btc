@@ -38,17 +38,16 @@ print get_last_deal(ticker='bitfinexbtcusdTic', nest='no', last='last_price', cu
 #796.com
 print get_last_deal(ticker='796futuresTicker', nest='yes', last='last', currency='usd')
 #btcchina.com
-print get_last_deal(ticker='btcchinaTicker', nest='yes', last='last', currency='cny')
+print get_exchangerate('usd') * float(get_last_deal(ticker='btcchinaTicker', nest='yes', last='last', currency='cny'))
 #huobi.com
-print get_last_deal(ticker='huobiTicker', nest='yes', last='last', currency='cny')
+print get_exchangerate('usd') * float(get_last_deal('huobiTicker', 'yes', 'last', 'cny'))
 #chbtc.com
-print get_last_deal(ticker='chbtcTicker', nest='yes', last='last', currency='cny')
+print get_exchangerate('usd') * float(get_last_deal('chbtcTicker', 'yes', 'last', 'cny'))
 #okcoin.com
-print get_last_deal(ticker='okcoinTicker', nest='yes', last='last', currency='cny')
+print get_exchangerate('usd') * float(get_last_deal('okcoinTicker', 'yes', 'last', 'cny'))
 #btctrade.com
-print get_last_deal(ticker='btctradeTicker', nest='no', last='last', currency='cny')
+print get_exchangerate('usd') * float(get_last_deal('btctradeTicker', 'no', 'last', 'cny'))
 #btc100.org
-print get_last_deal(ticker='btc100Ticker', nest='yes', last='last', currency='cny')
+print get_exchangerate('usd') * float(get_last_deal('btc100Ticker', 'yes', 'last', 'cny'))
 #bter.com
-print get_last_deal(ticker='bterTicker', nest='no', last='last', currency='cny')
-
+print get_exchangerate('usd') * float(get_last_deal('bterTicker', 'no', 'last', 'cny'))
