@@ -1,3 +1,4 @@
+from datetime import datetime
 from json import loads
 from urllib2 import Request, urlopen
 def get_last_deal(ticker, nest, last):
@@ -112,4 +113,14 @@ def get_usd_cny():
     usd_cny.append(float('%.2f' % cny_avg))
     return usd_cny
 
-print get_usd_cny()
+def generate_csv_file():
+    csv_file = open('btc.csv', 'a')
+    now = datetime.now()
+    time = now.strftime("%y%m%d%H%M")
+    usd_cny = get_usd_cny()
+    cny = str(usd_cny.pop())
+    usd = str(usd_cny.pop())
+    csv_file.write(time + ", " + usd + ", " + cny + "\n")
+    csv_file.close()
+
+generate_csv_file()
