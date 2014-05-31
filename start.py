@@ -1,6 +1,6 @@
 from json import loads
 from urllib2 import Request, urlopen
-def get_last_deal(ticker, nest, last, currency):
+def get_last_deal(ticker, nest, last):
     baseurl = 'http://t.btc123.com/m.js'
     req = Request(baseurl + '?type=' + ticker)
     try:
@@ -8,9 +8,11 @@ def get_last_deal(ticker, nest, last, currency):
         json_str = response.read()
         json_obj = loads(json_str)
         if nest == 'yes':
-            return json_obj['ticker'][last] 
+            last_str = json_obj['ticker'][last] 
+            return float('%.2f' % float(last_str))
         else: 
-            return json_obj[last]
+            last_str = json_obj[last]
+            return float('%.2f' % float(last_str))
     except URLError as e:
         if hasattr(e, 'reason'):
             print 'We failed to reach a server.'
@@ -29,91 +31,85 @@ def get_exchangerate(currency):
     else:
         return usd1cny
 
-def get_avg():
+def usd2cny(usd):
+    return float('%.2f' % (get_exchangerate('cny') * usd))
+
+def cny2usd(cny):
+    return float('%.2f' % (get_exchangerate('usd') * cny))
+
+def del_large_small_and_avg(list_as_stack):
+    list_as_stack.sort()
+    list_as_stack.pop()
+    list_as_stack.reverse()
+    list_as_stack.pop()
+    avg = sum(list_as_stack) / 9
+    return avg
+
+def get_usd_cny():
     usd_stack = []
     cny_stack = []
     #bitstamp.net
-    bitstamp = get_last_deal('bitstampTicker', 'no', 'last', 'usd')
-    bitstamp_cny = float('%.2f' % (get_exchangerate('cny') * float(bitstamp)))
-    bitstamp_usd = float('%.2f' % float(bitstamp))
+    bitstamp_usd = get_last_deal('bitstampTicker', 'no', 'last')
+    bitstamp_cny = usd2cny(bitstamp_usd)
     usd_stack.append(bitstamp_usd)
     cny_stack.append(bitstamp_cny)
     #btc-e.com
-    btc_e = get_last_deal('btceBTCUSDticker', 'yes', 'avg', 'usd')
-    btc_e_cny = float('%.2f' % (get_exchangerate('cny') * float(btc_e)))
-    btc_e_usd = float('%.2f' % float(btc_e))
+    btc_e_usd = get_last_deal('btceBTCUSDticker', 'yes', 'avg')
+    btc_e_cny = usd2cny(btc_e_usd)
     usd_stack.append(btc_e_usd)
     cny_stack.append(btc_e_cny)
     #bitfinex.com
-    bitfinex = get_last_deal('bitfinexbtcusdTic', 'no', 'last_price', 'usd')
-    bitfinex_cny = float('%.2f' % (get_exchangerate('cny') * float(bitfinex)))
-    bitfinex_usd = float('%.2f' % float(bitfinex))
+    bitfinex_usd = get_last_deal('bitfinexbtcusdTic', 'no', 'last_price')
+    bitfinex_cny = usd2cny(bitfinex_usd)
     usd_stack.append(bitfinex_usd)
     cny_stack.append(bitfinex_cny)
     #796.com
-    _796 = get_last_deal('796futuresTicker', 'yes', 'last', 'usd')
-    _796_cny = float('%.2f' % (get_exchangerate('cny') * float(_796)))
-    _796_usd = float('%.2f' % float(_796))
+    _796_usd = get_last_deal('796futuresTicker', 'yes', 'last')
+    _796_cny = usd2cny(_796_usd)
     usd_stack.append(_796_usd)
     cny_stack.append(_796_cny)
     #btcchina.com
-    btcchina = get_last_deal('btcchinaTicker', 'yes', 'last', 'cny')
-    btcchina_usd = float('%.2f' % (get_exchangerate('usd') * float(btcchina)))
-    btcchina_cny = float('%.2f' % float(btcchina))
+    btcchina_cny = get_last_deal('btcchinaTicker', 'yes', 'last')
+    btcchina_usd = cny2usd(btcchina_cny)
     cny_stack.append(btcchina_cny)
     usd_stack.append(btcchina_usd)
     #huobi.com
-    huobi = get_last_deal('huobiTicker', 'yes', 'last', 'cny')
-    huobi_usd = float('%.2f' % (get_exchangerate('usd') * float(huobi)))
-    huobi_cny = float('%.2f' % float(huobi))
+    huobi_cny = get_last_deal('huobiTicker', 'yes', 'last')
+    huobi_usd = cny2usd(huobi_cny)
     cny_stack.append(huobi_cny)
     usd_stack.append(huobi_usd)
     #chbtc.com
-    chbtc = get_last_deal('chbtcTicker', 'yes', 'last', 'cny')
-    chbtc_usd = float('%.2f' % (get_exchangerate('usd') * float(chbtc)))
-    chbtc_cny = float('%.2f' % float(chbtc))
+    chbtc_cny = get_last_deal('chbtcTicker', 'yes', 'last')
+    chbtc_usd = cny2usd(chbtc_cny)
     cny_stack.append(chbtc_cny)
     usd_stack.append(chbtc_usd)
     #okcoin.com
-    okcoin = get_last_deal('okcoinTicker', 'yes', 'last', 'cny')
-    okcoin_usd = float('%.2f' % (get_exchangerate('usd') * float(okcoin)))
-    okcoin_cny = float('%.2f' % float(okcoin))
+    okcoin_cny = get_last_deal('okcoinTicker', 'yes', 'last')
+    okcoin_usd = cny2usd(okcoin_cny)
     cny_stack.append(okcoin_cny)
     usd_stack.append(okcoin_usd)
     #btctrade.com
-    btctrade = get_last_deal('btctradeTicker', 'no', 'last', 'cny')
-    btctrade_usd = float('%.2f' % (get_exchangerate('usd') * float(btctrade)))
-    btctrade_cny = float('%.2f' % float(btctrade))
+    btctrade_cny = get_last_deal('btctradeTicker', 'no', 'last')
+    btctrade_usd = cny2usd(btctrade_cny)
     cny_stack.append(btctrade_cny)
     usd_stack.append(btctrade_usd)
     #btc100.org
-    btc100 = get_last_deal('btc100Ticker', 'yes', 'last', 'cny')
-    btc100_usd = float('%.2f' % (get_exchangerate('usd') * float(btc100)))
-    btc100_cny = float('%.2f' % float(btc100))
+    btc100_cny = get_last_deal('btc100Ticker', 'yes', 'last')
+    btc100_usd = cny2usd(btc100_cny)
     cny_stack.append(btc100_cny)
     usd_stack.append(btc100_usd)
     #bter.com
-    bter = get_last_deal('bterTicker', 'no', 'last', 'cny')
-    bter_usd = float('%.2f' % (get_exchangerate('usd') * float(bter)))
-    bter_cny = float('%.2f' % float(bter))
+    bter_cny = get_last_deal('bterTicker', 'no', 'last')
+    bter_usd = cny2usd(bter_cny)
     cny_stack.append(bter_cny)
     usd_stack.append(bter_usd)
 
-    usd_stack.sort()
-    usd_stack.pop()
-    usd_stack.reverse()
-    usd_stack.pop()
-    usd_avg = sum(usd_stack) / 9
-
-    cny_stack.sort()
-    cny_stack.pop()
-    cny_stack.reverse()
-    cny_stack.pop()
-    cny_avg = sum(cny_stack) / 9
+    usd_avg = del_large_small_and_avg(usd_stack)
+    cny_avg = del_large_small_and_avg(cny_stack)
     
-    both_avg = []
-    both_avg.append(float('%.2f' % usd_avg))
-    both_avg.append(float('%.2f' % cny_avg))
-    return both_avg
+    usd_cny = []
+    usd_cny.append(float('%.2f' % usd_avg))
+    usd_cny.append(float('%.2f' % cny_avg))
+    return usd_cny
 
-print get_avg()
+print get_usd_cny()
