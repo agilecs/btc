@@ -117,7 +117,7 @@ def get_usd_cny():
 def generate_csv_file():
     csv_file = open('btc.csv', 'a')
     now = datetime.now()
-    time = now.strftime("%y%m%d%H%M")
+    time = now.strftime("%y%m%d %H%M")
     usd_cny = get_usd_cny()
     cny = str(usd_cny.pop())
     usd = str(usd_cny.pop())

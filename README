@@ -26,8 +26,8 @@ Type "help", "copyright", "credits" or "license" for more information.
 $ python start.py
 $ cat btc.csv
 Time, USD, CNY
-1405312353, 620.21, 3873.85
-1406010003, 620.32, 3874.59
+140531 2353, 620.21, 3873.85
+140601 0003, 620.32, 3874.59
 
 How to run the script on MacOS (Mavericks 10.9.2)
 -------------------------------------------------
@@ -49,12 +49,12 @@ $ python start.py
  >>> getting data from btc100Ticker ... ... 
  >>> getting data from bterTicker ... ... 
  >>> got the latest value: added into btc.csv
- <<< 1406011351, 650.32, 4061.94
+ <<< 140601 1351, 650.32, 4061.94
 $ cat btc.csv
 Time, USD, CNY
-1405312353, 620.21, 3873.85
-1406010003, 620.32, 3874.59
-1406011351, 650.32, 4061.94
+140531 2353, 620.21, 3873.85
+140601 0003, 620.32, 3874.59
+140601 1351, 650.32, 4061.94
 
 Reference to install python 2.7 on windows
 ------------------------------------------
