@@ -1,5 +1,49 @@
-# Get the BitCoin deal data
+Get the BitCoin deal data
+=========================
+You can use this python script to generate the lastest average deal of BitCoin from eleven websites.
+They are:
+* btc-e.com
+* bitfinex.com
+* 796.com
+* btcchina.com
+* huobi.com
+* chbtc.com
+* okcoin.com
+* btctrade.com
+* btc100.org
+* bter.com
+We are using the API from btc123.com in start.py
+We just fetch the last price for each website, and then delete the largest one and smallest one, sum of the rest and get the average value at last.
+Every time we run the script, that will add a record into btc.csv, the btc.csv file can be opened by Excel.
+
+How to run the script on Linux (Ubuntu 13.04)
+---------------------------------------------
 $ python
 Python 2.7.5+ (default, Sep 19 2013, 13:49:51) 
 [GCC 4.8.1] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> exit()
 $ python start.py
+$ cat btc.csv
+Time, USD, CNY
+1405312353, 620.21, 3873.85
+1406010003, 620.32, 3874.59
+
+How to run the script on MacOS (Mavericks 10.9.2)
+-------------------------------------------------
+$ python 
+Python 2.7.5 (default, Aug 25 2013, 00:04:04) 
+[GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> exit()
+$ python start.py
+$ cat btc.csv
+Time, USD, CNY
+1405312353, 620.21, 3873.85
+1406010003, 620.32, 3874.59
+1406011351, 650.32, 4061.94
+
+Reference to install python 2.7 on windows
+------------------------------------------
+https://www.python.org/download/releases/2.7.6
+
