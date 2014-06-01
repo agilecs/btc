@@ -2,6 +2,7 @@ from datetime import datetime
 from json import loads
 from urllib2 import Request, urlopen
 def get_last_deal(ticker, nest, last):
+    print ' >>> getting data from ' + ticker + ' ... ... '
     baseurl = 'http://t.btc123.com/m.js'
     req = Request(baseurl + '?type=' + ticker)
     try:
@@ -122,5 +123,7 @@ def generate_csv_file():
     usd = str(usd_cny.pop())
     csv_file.write(time + ", " + usd + ", " + cny + "\n")
     csv_file.close()
+    print ' >>> got the latest value: added into btc.csv'
+    print ' <<< ' + time + ', ' + usd + ', ' + cny + '\n'
 
 generate_csv_file()
