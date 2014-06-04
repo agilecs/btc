@@ -38,7 +38,7 @@ Enter the exchange rate from USD to CNY (i.e. 1USD == ?RMB): 6.2460
  >>> getting data from btc100Ticker ... ...
  >>> getting data from bterTicker ... ...
  >>> got the latest value: added into btc.csv
- <<< 140601 1351, 650.32, 4061.94
+ <<< 140601 0003, 620.32, 3874.59
 $ cat btc.csv
 Time, USD, CNY
 140531 2353, 620.21, 3873.85
