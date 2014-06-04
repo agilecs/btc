@@ -26,8 +26,8 @@ def get_last_deal(ticker, nest, last):
         pass # do nothing
 
 def get_exchangerate(currency):
-    cny1usd = 0.1601
-    usd1cny = 6.2460
+    cny1usd = float(CNY1USD)
+    usd1cny = float(USD1CNY)
     if currency == 'usd':
         return cny1usd
     else:
@@ -126,4 +126,6 @@ def generate_csv_file():
     print ' >>> got the latest value: added into btc.csv'
     print ' <<< ' + time + ', ' + usd + ', ' + cny + '\n'
 
+CNY1USD = raw_input("Enter the exchange rate from CNY to USD (i.e. 1RMB == ?USD): ")
+USD1CNY = raw_input("Enter the exchange rate from USD to CNY (i.e. 1USD == ?RMB): ")
 generate_csv_file()
